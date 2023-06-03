@@ -19,15 +19,15 @@ export function toggleFullscreen() {
 }
 
 // Enter fullscreen mode
-export function enterFullscreen(element = document.documentElement) {
-  if (element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  } else if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen();
+export async function enterFullscreen(element = document.documentElement) {
+  if (element?.requestFullscreen) {
+    await element.requestFullscreen();
+  } else if (element?.webkitRequestFullscreen) {
+    await element.webkitRequestFullscreen();
+  } else if (element?.mozRequestFullScreen) {
+    await element.mozRequestFullScreen();
+  } else if (element?.msRequestFullscreen) {
+    await element.msRequestFullscreen();
   }
 }
 

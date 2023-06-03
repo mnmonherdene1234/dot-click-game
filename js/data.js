@@ -4,11 +4,21 @@ class Data {
 
     if (data) {
       const objData = JSON.parse(data);
-      if (objData?.clicked && objData?.clicked instanceof Number) {
-        this.#clicked = Math.floor(objData?.clicked);
+      console.log(objData);
+      if (objData?.clicked) {
+        this.#clicked = parseInt(objData?.clicked);
+      }
+
+      if (objData?.timePlayed) {
+        this.#timePlayed = parseInt(objData?.timePlayed);
       }
     }
+
+    window.addEventListener("unload", () => this.#save());
   }
+
+  #timePlayed = 0;
+  #gameStartedDate = new Date();
 
   #clicked = 0;
 
@@ -30,11 +40,16 @@ class Data {
   }
 
   #save() {
+    const now = Date.now();
+    this.#timePlayed += now - this.#gameStartedDate.getTime();
+
     const data = JSON.stringify({
       clicked: this.#clicked,
+      timePlayed: this.#timePlayed,
     });
 
     localStorage.setItem("data", data);
+    this.#gameStartedDate = new Date();
   }
 
   #onClickedChangeHandlers = [];
